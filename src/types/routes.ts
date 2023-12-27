@@ -1,6 +1,7 @@
 export enum AppRoutes {
   HOME = '/publications',
   BILLS = '/bills',
+  BUILDINGS = '/buildings',
   RESIDENTS = '/residents',
   SETTINGS = '/settings',
   BILLS_NEW = '/bills/new',
