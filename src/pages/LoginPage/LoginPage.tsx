@@ -6,6 +6,7 @@ const LoginPage = () => {
       <Helmet>
         <title>Login</title>
       </Helmet>
+        <span className="text"> Login</span>
     </>
   );
 };
