@@ -2,8 +2,12 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   height: 100dvh;
+  background-color: rgba(108, 99, 255, 1);
+  align-items: center;
+
 
   .loginSVG {
+    background-color: white;
     grid-row: 1;
     grid-column: 1;
     height: inherit;
@@ -16,5 +20,21 @@
     height: min(45dvw, 45dvh);
     position: relative;
     right: 2.5rem;
+  }
+  .login__page__container{
+    height:  30dvh;
+    background-color: white;
+    position: relative;
+    width: min(45dvw, 45dvh);
+    left: min(10dvh, 10dvw,5rem);
+    min-width: fit-content;
+    display: flex;
+    flex-direction: column;
+    row-gap: .5rem;
+    align-items: center;
+    justify-content: center;
+    .welcoming__text{
+
+    }
   }
 }
