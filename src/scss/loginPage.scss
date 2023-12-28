@@ -1,4 +1,20 @@
-.login__page__container{
+.login__form__container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  height: 100dvh;
+
+  .loginSVG {
+    grid-row: 1;
+    grid-column: 1;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  #loginSVG {
+    height: min(45dvw, 45dvh);
+    position: relative;
+    right: 2.5rem;
+  }
 }
