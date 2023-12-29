@@ -1,0 +1,52 @@
+$violet-color: rgba(108, 99, 255, 1);
+
+.login__form__container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  height: 100dvh;
+  background-color: $violet-color;
+  align-items: center;
+
+
+  .loginSVG {
+    background-color: white;
+    grid-row: 1;
+    grid-column: 1;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  #loginSVG {
+    height: min(45dvw, 45dvh);
+    position: relative;
+    right: 2.5rem;
+  }
+
+  .login__page__container {
+    height: 25dvh;
+    border-radius: 2rem;
+    background-color: white;
+    position: relative;
+    width: min(45dvw, 45dvh);
+    left: min(10dvh, 10dvw, 5rem);
+    min-width: fit-content;
+    display: flex;
+    flex-direction: column;
+    row-gap: .5rem;
+    align-items: center;
+    justify-content: center;
+
+    .welcoming__text:last-of-type {
+      margin-bottom: 2rem;
+    }
+
+    #sign__in__button {
+      background-color: $violet-color;
+      color: white;
+      width: 80%;
+      border-radius: 10rem;
+    }
+  }
+}
