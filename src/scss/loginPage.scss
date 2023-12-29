@@ -21,20 +21,30 @@
     position: relative;
     right: 2.5rem;
   }
-  .login__page__container{
-    height:  30dvh;
+
+  .login__page__container {
+    height: 25dvh;
+    border-radius: 2rem;
     background-color: white;
     position: relative;
     width: min(45dvw, 45dvh);
-    left: min(10dvh, 10dvw,5rem);
+    left: min(10dvh, 10dvw, 5rem);
     min-width: fit-content;
     display: flex;
     flex-direction: column;
     row-gap: .5rem;
     align-items: center;
     justify-content: center;
-    .welcoming__text{
 
+    .welcoming__text:last-of-type {
+      margin-bottom: 2rem;
+    }
+
+    #sign__in__button {
+      background-color: rgba(108, 99, 255, 1);
+      color: white;
+      width: 80%;
+      border-radius: 10rem;
     }
   }
 }
