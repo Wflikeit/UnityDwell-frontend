@@ -1,8 +1,10 @@
+$violet-color: rgba(108, 99, 255, 1);
+
 .login__form__container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   height: 100dvh;
-  background-color: rgba(108, 99, 255, 1);
+  background-color: $violet-color;
   align-items: center;
 
 
@@ -41,7 +43,7 @@
     }
 
     #sign__in__button {
-      background-color: rgba(108, 99, 255, 1);
+      background-color: $violet-color;
       color: white;
       width: 80%;
       border-radius: 10rem;
