@@ -2,29 +2,39 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { createBrowserRouter, RouterProvider, createRoutesFromElements, Route } from 'react-router-dom';
 import { AppRoutes } from '../../types/routes.ts';
 import LoginPage from '../LoginPage/LoginPage.tsx';
-import BillsPage from '../BillsPage/BillsPage.tsx';
-import BuildingsPage from '../BuildingsPage/BuildingsPage.tsx';
-import ResidentsPage from '../ResidentsPage/ResidentsPage.tsx';
-import PublicationsPage from '../PublicationsPage/PublicationsPage.tsx';
-import NotFoundPage from '../NotFoundPage/NotFoundPage.tsx';
+import { LoggedInRoutes } from './LoggedInRoutes.tsx';
+import { ProtectedRouteWrapper } from '../../auth/ProtectedRouteWrapper.tsx';
+import { UserRole } from '../../auth/UserRole.ts';
+import { EnsureAuth } from './EnsureAuth.tsx';
+import { Auth } from '../../auth/Auth.tsx';
 
 function App() {
   const queryClient = new QueryClient();
 
   const router = createBrowserRouter(
     createRoutesFromElements([
+      // eslint-disable-next-line react/jsx-key
       <Route path={AppRoutes.LOGIN_PAGE} element={<LoginPage />} />,
-      <Route path={AppRoutes.BUILDINGS} element={<BuildingsPage />} />,
-      <Route path={AppRoutes.RESIDENTS} element={<ResidentsPage />} />,
-      <Route path={AppRoutes.BILLS} element={<BillsPage />} />,
-      <Route path={AppRoutes.HOME} element={<PublicationsPage />} />,
-      <Route path="*" element={<NotFoundPage />} />,
+      // eslint-disable-next-line react/jsx-key
+      <Route path={AppRoutes.AUTH} element={<Auth />} />,
+      // eslint-disable-next-line react/jsx-key
+      <Route
+        path="/*"
+        element={
+          <ProtectedRouteWrapper allowedRoles={[UserRole.ADMIN, UserRole.EMPLOYEE, UserRole.FLAT_OWNER]}>
+            <LoggedInRoutes />
+          </ProtectedRouteWrapper>
+        }
+      />,
     ])
   );
+
   return (
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router}>
+        <EnsureAuth />
+      </RouterProvider>
+    </QueryClientProvider>
   );
 }
 

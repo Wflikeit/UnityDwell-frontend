@@ -4,10 +4,13 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const LoginForm = () => {
   const { loginWithRedirect } = useAuth0();
+
+
+
   const onClickAction = async () => {
     await loginWithRedirect({
       authorizationParams: {
-        redirect_uri: 'http://localhost:5173/publications',
+        redirect_uri: 'http://localhost:5173/auth',
       },
     });
   };
