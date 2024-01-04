@@ -2,11 +2,11 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { createBrowserRouter, RouterProvider, createRoutesFromElements, Route } from 'react-router-dom';
 import { AppRoutes } from '../../types/routes.ts';
 import LoginPage from '../LoginPage/LoginPage.tsx';
-import { LoggedInRoutes } from './LoggedInRoutes.tsx';
 import { ProtectedRouteWrapper } from '../../auth/ProtectedRouteWrapper.tsx';
 import { UserRole } from '../../auth/UserRole.ts';
 import { EnsureAuth } from './EnsureAuth.tsx';
 import { Auth } from '../../auth/Auth.tsx';
+import { LoggedInRoutes } from "./LoggedInRoutes.tsx";
 
 function App() {
   const queryClient = new QueryClient();
