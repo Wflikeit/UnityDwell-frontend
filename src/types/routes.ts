@@ -11,4 +11,5 @@ export enum AppRoutes {
   PUBLICATIONS_EDIT = '/publications/:id',
   APARTMENTS_EDIT = '/apartments/:id',
   LOGIN_PAGE = '/login',
+  AUTH = '/authorization',
 }
