@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { UserRole } from './UserRole';
 import { LoggedInUser, getUserFromToken } from './authService';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage.tsx';
-import {useCustomNavigation} from '../hooks/NavigationHook.ts';
+import { useCustomNavigation } from '../hooks/NavigationHook.ts';
 
 type ProtectedRouteWrapperProps = {
   allowedRoles: UserRole[];
@@ -11,17 +11,19 @@ type ProtectedRouteWrapperProps = {
 };
 
 export const ProtectedRouteWrapper: React.FC<ProtectedRouteWrapperProps> = ({ allowedRoles, children }) => {
-  const user: LoggedInUser | undefined = useMemo(() => getUserFromToken(), []);
+  const user: LoggedInUser | undefined = getUserFromToken();
 
   const { navigateToLoginPage } = useCustomNavigation();
 
-  const hasValidRole: boolean = useMemo(() => {
+  useEffect(() => {
     if (!user) {
       navigateToLoginPage();
-      return false;
     }
-    return allowedRoles.includes(user?.role as UserRole);
-  }, [navigateToLoginPage, allowedRoles, user]);
+  }, [user, navigateToLoginPage]);
+
+  const hasValidRole: boolean = useMemo(() => {
+    return allowedRoles.includes(('ROLE_' + user?.role) as UserRole);
+  }, [allowedRoles, user]);
 
   if (!hasValidRole) {
     return <NotFoundPage />;
