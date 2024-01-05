@@ -1,14 +1,14 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 
-// import ProfilePhotoWrapper from '../layout/ProfilePhotoWrapper';
 import { getUserFromToken } from "../../auth/authService.ts";
+import ProfilePhotoWrapper from "../layout/ProfilePhotoWrapper.tsx";
 
 
 const Header = () => {
   const user = useMemo(() => getUserFromToken(), []);
   return (
     <header className="layout__header">
-      {/*<ProfilePhotoWrapper user={user} />*/}
+      <ProfilePhotoWrapper user={user} />
     </header>
   );
 };
