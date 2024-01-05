@@ -6,7 +6,8 @@ import { ProtectedRouteWrapper } from '../../auth/ProtectedRouteWrapper.tsx';
 import { UserRole } from '../../auth/UserRole.ts';
 import { EnsureAuth } from './EnsureAuth.tsx';
 import { Auth } from '../../auth/Auth.tsx';
-import { LoggedInRoutes } from "./LoggedInRoutes.tsx";
+import { LoggedInRoutes } from './LoggedInRoutes.tsx';
+import Layout from '../../components/layout/Layout.tsx';
 
 function App() {
   const queryClient = new QueryClient();
@@ -19,10 +20,10 @@ function App() {
       <Route path={AppRoutes.AUTH} element={<Auth />} />,
       // eslint-disable-next-line react/jsx-key
       <Route
-        path="/*"
+        path="*"
         element={
           <ProtectedRouteWrapper allowedRoles={[UserRole.ADMIN, UserRole.EMPLOYEE, UserRole.FLAT_OWNER]}>
-            <LoggedInRoutes />
+              <LoggedInRoutes />
           </ProtectedRouteWrapper>
         }
       />,
