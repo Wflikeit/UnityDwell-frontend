@@ -86,3 +86,17 @@ main {
     }
 }
 
+.sign__out__button {
+    background: white;
+    border: none;
+    cursor: pointer;
+    font-weight: normal;
+    height: 4.5rem;
+    padding: 1rem 7rem 1rem 1rem;
+
+    &:hover {
+        background-color: #dadada;
+    }
+}
+
+
