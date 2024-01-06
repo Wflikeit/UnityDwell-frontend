@@ -20,7 +20,7 @@ export const checkTokenValidity = (unauthorizedCallback: () => void) => {
   const currentTime = Date.now() / 1000;
 
   if (decodedToken.exp && decodedToken.exp < currentTime) {
-    sessionStorage.removeItem('token');
+    sessionStorage.removeItem(TOKEN_KEY);
     unauthorizedCallback();
   } else {
     const timeout = decodedToken.exp * 1000 - currentTime * 1000;
