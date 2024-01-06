@@ -18,11 +18,9 @@ const Sidebar = (): JSX.Element => {
   return (
     <nav className="sidebar">
       <List style={{ position: 'sticky', top: '0' }}>
-
         <ListItem sx={{ display: 'grid', placeContent: 'center' }}>
-            <ApartmentIcon sx={{ fontSize: "4.5rem"}} />
+          <ApartmentIcon sx={{ fontSize: '4.5rem' }} />
         </ListItem>
-
         <Box sx={{ mt: 1 }}>
           <SideBarIcon to={'/publications'} typographyText={'Publications'}>
             <DraftsIcon fontSize="large" />
