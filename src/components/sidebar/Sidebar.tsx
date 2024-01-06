@@ -22,21 +22,21 @@ const Sidebar = () => {
         {/*</ListItem>*/}
         <Box sx={{ mt: 1 }}>
           <SideBarIcon to={'/publications'} typographyText={'Publications'}>
-            <DraftsIcon fontSize="large"/>
+            <DraftsIcon fontSize="large" />
           </SideBarIcon>
           <SideBarIcon to={'/bills'} typographyText={'Bills'}>
-            <PaymentsIcon fontSize="large"/>
+            <PaymentsIcon fontSize="large" />
           </SideBarIcon>
           <SideBarIcon to={'/settings'} typographyText={'Settings'}>
-            <SettingsIcon fontSize="large"/>
+            <SettingsIcon fontSize="large" />
           </SideBarIcon>
           {user?.role === 'ADMIN' && (
             <>
               <SideBarIcon to={'/buildings'} typographyText={'Buildings'}>
-                <BusinessIcon fontSize="large"/>
+                <BusinessIcon fontSize="large" />
               </SideBarIcon>
               <SideBarIcon to={'/residents'} typographyText={'Residents'}>
-                <GroupsIcon fontSize="large"/>
+                <GroupsIcon fontSize="large" />
               </SideBarIcon>
             </>
           )}
