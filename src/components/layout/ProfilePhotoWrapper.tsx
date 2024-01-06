@@ -1,22 +1,23 @@
 import { useState } from 'react';
 import Popover from '@mui/material/Popover';
 import { LoggedInUser, TOKEN_KEY } from "../../auth/authService.ts";
-import { useCustomNavigation } from "../../hooks/NavigationHook.ts";
+import { useAuth0 } from "@auth0/auth0-react";
 import { randomColorFor } from "../../values/colors.ts";
+import { AppRoutes } from "../../types/routes.ts";
 
 
 
-export default function ProfilePhotoWrapper({ user }: { user?: LoggedInUser }) {
+
+export default function ProfilePhotoWrapper({ user }: { user: LoggedInUser }) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const { navigateToLoginPage } = useCustomNavigation();
-
+  const {logout} = useAuth0()
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleLogoutClick = () => {
-    sessionStorage.removeItem(TOKEN_KEY);
-    navigateToLoginPage();
+    sessionStorage.removeItem(TOKEN_KEY)
+    logout({ logoutParams: { returnTo: window.location.origin + AppRoutes.LOGIN_PAGE } });
   };
 
   const handleClose = () => {
@@ -28,10 +29,12 @@ export default function ProfilePhotoWrapper({ user }: { user?: LoggedInUser }) {
 
   const avatarColor = randomColorFor(user?.email as string);
 
+  const [name, surname] = user.email.toUpperCase().split('@')[0].split('.');
+
   return (
     <div className="icon__wrapper">
       <button className="photo__wrapper" style={{ backgroundColor: `${avatarColor}` }} onClick={handleClick}>
-        AD
+        {name.charAt(0) + surname.charAt(0)}
       </button>
 
       <Popover

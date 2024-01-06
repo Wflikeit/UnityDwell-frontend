@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-import { TOKEN_KEY } from '../auth/authService';
-import {useCustomNavigation} from '../hooks/NavigationHook.ts';
-
+import { useAuth0 } from '@auth0/auth0-react';
+import { AppRoutes } from '../types/routes.ts';
+import { TOKEN_KEY } from "../auth/authService.ts";
 
 const useUnauthorizedRedirect = () => {
-  const { navigateToLoginPage } = useCustomNavigation();
+  const { logout } = useAuth0();
 
   axios.interceptors.response.use(
     (response) => {
@@ -13,8 +13,8 @@ const useUnauthorizedRedirect = () => {
     },
     (error) => {
       if (error.response && error.response.status === 401) {
-        localStorage.removeItem(TOKEN_KEY);
-        navigateToLoginPage();
+        sessionStorage.removeItem(TOKEN_KEY)
+        logout({ logoutParams: { returnTo: window.location.origin + AppRoutes.LOGIN_PAGE } });
       }
 
       return Promise.reject(error);

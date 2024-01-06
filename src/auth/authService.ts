@@ -6,7 +6,7 @@ import { jwtDecode } from 'jwt-decode';
 type DecodedToken = {
   exp: number;
   user_roles: UserRole;
-  sub: string;
+  user_email: string;
 };
 export const TOKEN_KEY = 'access_token';
 export const checkTokenValidity = (unauthorizedCallback: () => void) => {
@@ -41,7 +41,7 @@ export const getUserFromToken = () => {
   }
 
   return {
-    email: decodedToken.sub,
+    email: decodedToken.user_email,
     role: decodedToken.user_roles[0],
   } as LoggedInUser;
 };
