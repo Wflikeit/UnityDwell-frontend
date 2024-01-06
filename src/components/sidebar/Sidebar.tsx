@@ -18,7 +18,7 @@ const Sidebar = (): JSX.Element => {
   return (
     <nav className="sidebar">
       <List style={{ position: 'sticky', top: '0' }}>
-        <ListItem sx={{ display: 'grid', placeContent: 'center' }}>
+        <ListItem id= "app_logo" sx={{ display: 'grid', placeContent: 'center' }}>
           <ApartmentIcon sx={{ fontSize: '4.5rem' }} />
         </ListItem>
         <Box sx={{ mt: 1 }}>
