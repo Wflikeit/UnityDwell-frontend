@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import List from '@mui/material/List';
 
+import List from '@mui/material/List';
 import { Box } from '@mui/material';
 
 import { getUserFromToken } from '../../auth/authService';
@@ -11,7 +11,7 @@ import BusinessIcon from '@mui/icons-material/Business';
 import GroupsIcon from '@mui/icons-material/Groups';
 import DraftsIcon from '@mui/icons-material/Drafts';
 
-const Sidebar = () => {
+const Sidebar = (): JSX.Element => {
   const user = useMemo(() => getUserFromToken(), []);
 
   return (

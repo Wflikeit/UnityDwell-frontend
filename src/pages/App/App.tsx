@@ -7,9 +7,8 @@ import { UserRole } from '../../auth/UserRole.ts';
 import { EnsureAuth } from './EnsureAuth.tsx';
 import { Auth } from '../../auth/Auth.tsx';
 import { LoggedInRoutes } from './LoggedInRoutes.tsx';
-import Layout from '../../components/layout/Layout.tsx';
 
-function App() {
+function App(): JSX.Element {
   const queryClient = new QueryClient();
 
   const router = createBrowserRouter(

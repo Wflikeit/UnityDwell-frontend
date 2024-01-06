@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Navigate, Routes } from 'react-router';
 import { Route } from 'react-router-dom';
 import PublicationsPage from '../PublicationsPage/PublicationsPage.tsx';
@@ -10,7 +12,7 @@ import BillsPage from '../BillsPage/BillsPage.tsx';
 import NotFoundPage from '../NotFoundPage/NotFoundPage.tsx';
 import Layout from '../../components/layout/Layout.tsx';
 
-export const LoggedInRoutes = () => {
+export const LoggedInRoutes: React.FC = () => {
   return (
     <Routes>
       <Route element={<Layout />}>
