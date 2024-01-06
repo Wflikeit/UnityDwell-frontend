@@ -31,7 +31,9 @@ function App(): JSX.Element {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router}>
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/*@ts-expect-error*/}
+      <RouterProvider router={router} >
         <EnsureAuth />
       </RouterProvider>
     </QueryClientProvider>
