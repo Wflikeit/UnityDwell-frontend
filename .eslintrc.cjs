@@ -8,11 +8,12 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
 
   ],
-  plugins: ["@typescript-eslint", "react-hooks", "unused-imports", "eslint-plugin-react"],
+  plugins: ["@typescript-eslint", "react-hooks", "unused-imports", "eslint-plugin-react", "unused-imports" ],
   rules: {
     "react/no-unused-prop-types": "off",
     "react/no-unescaped-entities": ["off", { allowHTML: true }],
@@ -25,7 +26,10 @@ module.exports = {
       }
     ],
 
-    "unused-imports/no-unused-imports": "error",
+
+    // Unused imports rules
+    "unused-imports/no-unused-vars": 1,
+    "unused-imports/no-unused-imports": 1,
     "unused-imports/no-unused-declarations": "off",
 
     // React rules
@@ -86,6 +90,7 @@ module.exports = {
     "react-hooks/exhaustive-deps": 2,
     "jsx-a11y/alt-text": "off"
   },
+
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser"
 };
