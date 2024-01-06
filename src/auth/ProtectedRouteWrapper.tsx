@@ -22,9 +22,8 @@ export const ProtectedRouteWrapper: React.FC<ProtectedRouteWrapperProps> = ({ al
   }, [user, navigateToLoginPage]);
 
   const hasValidRole: boolean = useMemo(() => {
-    return allowedRoles.includes(('ROLE_' + user?.role) as UserRole);
+    return allowedRoles.includes((user?.role) as UserRole);
   }, [allowedRoles, user]);
-
   if (!hasValidRole) {
     return <NotFoundPage />;
   }
