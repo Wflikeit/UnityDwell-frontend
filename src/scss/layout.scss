@@ -1,5 +1,6 @@
+$white-color: #ddd;
 footer {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid $white-color;
   color: #999;
   display: flex;
   grid-column: 2 / 3;
@@ -16,7 +17,7 @@ main {
 }
 
 .sidebar {
-  border-right: 1px solid #ddd;
+  border-right: 1px solid $white-color;
   grid-column: 1 / 2;
   grid-row: 1/-1;
   position: sticky;
@@ -26,7 +27,7 @@ main {
 
 .layout__header {
   background: #fff;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $white-color;
   display: flex;
   grid-column: 2/3;
   grid-row: 1/2;
@@ -108,8 +109,9 @@ main {
     background-color: #dadada;
   }
 }
-#app_logo{
-  margin-bottom:4rem;
+
+#app_logo {
+  margin-bottom: 4rem;
 }
 
 

@@ -22,7 +22,7 @@ function App(): JSX.Element {
         path="*"
         element={
           <ProtectedRouteWrapper allowedRoles={[UserRole.ADMIN, UserRole.EMPLOYEE, UserRole.FLAT_OWNER]}>
-              <LoggedInRoutes />
+            <LoggedInRoutes />
           </ProtectedRouteWrapper>
         }
       />,
@@ -33,7 +33,7 @@ function App(): JSX.Element {
     <QueryClientProvider client={queryClient}>
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
       {/*@ts-expect-error*/}
-      <RouterProvider router={router} >
+      <RouterProvider router={router}>
         <EnsureAuth />
       </RouterProvider>
     </QueryClientProvider>

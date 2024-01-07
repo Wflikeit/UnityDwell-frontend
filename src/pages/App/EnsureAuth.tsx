@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-import {useCustomNavigation} from '../../hooks/NavigationHook.ts';
-import {checkTokenValidity} from '../../auth/authService.ts';
+import { useCustomNavigation } from '../../hooks/NavigationHook.ts';
+import { checkTokenValidity } from '../../auth/authService.ts';
 import useUnauthorizedRedirect from '../../axios/useUnauthorizedRedirect.ts';
 
 export const EnsureAuth = () => {

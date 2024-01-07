@@ -1,28 +1,21 @@
 import { Helmet } from 'react-helmet-async';
-import axios from 'axios';
-import {Button} from '@mui/material';
-import {AddressModel} from '../../models/Address.ts';
+import { Stack } from '@mui/material';
+import AddNewPieceButton from '../../components/addNewNewPieceButton/AddNewNewPieceButton.tsx';
+import Box from '@mui/material/Box/Box';
 
 const PublicationsPage = () => {
-
-  const doSth = async (): Promise<AddressModel> => {
-    try {
-      const response = await axios.get<AddressModel>('http://localhost:8080/api/address/76e3d25f-2705-4fbb-97cc-8b78613e80b6', {
-      });
-      console.log(response);
-      return response.data;
-    } catch (error) {
-      console.error('Błąd podczas pobierania danych:', error);
-      throw error; // Dodaj ten fragment, aby błędy były przekazywane dalej
-    }
-  };
   return (
     <>
       <Helmet>
         <title>Publications</title>
       </Helmet>
-      <Button onClick={doSth}>Click</Button>
+      <Box sx={{ m: 7, ml: 40, mr: 40 }}>
+        <Stack spacing={2}>
+          <AddNewPieceButton path="/publications" />
+        </Stack>
+      </Box>
     </>
   );
 };
+
 export default PublicationsPage;
