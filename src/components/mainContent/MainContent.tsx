@@ -1,13 +1,11 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
-const Main = () => {
+const Main: React.FC = () => {
   return (
-    <>
-      <main>
-        <Outlet />
-      </main>
-    </>
+    <main style={{backgroundColor:"rgba(236, 235, 255, 1)"}}>
+      <Outlet />
+    </main>
   );
 };
 

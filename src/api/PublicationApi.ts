@@ -7,18 +7,20 @@ export const API_URL: string = 'http://localhost:8080/api/';
 export const EXAMPLE_HOUSING_ASSOCIATION_ID: string = '04678797-6435-45d1-a748-770b33a1917b';
 export const EXAMPLE_PUBLICATION_ID: string = '154e284f-1303-4e36-b3de-db32669e7cfe';
 export const fetchPublications = async (): Promise<PublicationModel[]> => {
-  const response = await axios.get<PublicationsResponse>(API_URL + EXAMPLE_HOUSING_ASSOCIATION_ID + 'publications/');
+  const response = await axios.get<PublicationsResponse>(
+    API_URL + 'housing-association/' + EXAMPLE_HOUSING_ASSOCIATION_ID + '/publications'
+  );
   return response.data.publications;
 };
 export const fetchPublication = async (publicationId: string): Promise<PublicationModel> => {
   const response = await axios.get<PublicationModel>(
-    API_URL + EXAMPLE_HOUSING_ASSOCIATION_ID + 'publications/' + publicationId
+    API_URL + 'housing-association/' + EXAMPLE_HOUSING_ASSOCIATION_ID + '/publications/' + publicationId
   );
   return response.data;
 };
 export const usePublicationsQuery = () => {
   return useQuery(['publications'], fetchPublications);
 };
-export const useApartmentQuery = (publicationId: string) => {
-  return useQuery(['apartment', publicationId], () => fetchPublication(publicationId));
+export const usePublicationQuery = (publicationId: string) => {
+  return useQuery(['publication', publicationId], () => fetchPublication(publicationId));
 };

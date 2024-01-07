@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, CardActionArea, CardContent } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { Link as RouterLink } from 'react-router-dom';
-import { grey } from '@mui/material/colors';
 import { AddressModel } from '../../models/Address.ts';
 import axios from 'axios';
 
@@ -29,7 +28,7 @@ const AddNewPieceButton: React.FC<AddNewPieceButtonProps> = ({ path }) => {
     <CardActionArea component={RouterLink} to={path} onClick={doSth}>
       <Card
         style={{ border: 'none', boxShadow: 'none' }}
-        sx={{ bgcolor: grey[200], height: 80, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+        sx={{backgroundColor: 'rgba(203, 203, 204, 1)'  , height: 80, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
       >
         <CardContent>
           <AddIcon />
