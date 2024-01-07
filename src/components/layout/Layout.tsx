@@ -8,7 +8,7 @@ import Main from '../mainContent/MainContent.tsx';
 
 import '../../scss/layout.scss';
 
-const Layout = (): JSX.Element => {
+const Layout = (): React.JSX.Element => {
   return (
     <Box
       gridTemplateRows={'auto 1fr auto'}
