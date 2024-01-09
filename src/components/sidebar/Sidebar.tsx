@@ -12,7 +12,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import DraftsIcon from '@mui/icons-material/Drafts';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 
-const Sidebar = (): JSX.Element => {
+const Sidebar = (): React.JSX.Element => {
   const user = useMemo(() => getUserFromToken(), []);
 
   return (
