@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
-const BillsTableContainer: React.FC = () => {
+const BillsTable: React.FC = () => {
 
   return (
     <DataGrid
@@ -20,10 +20,10 @@ const BillsTableContainer: React.FC = () => {
   );
 };
 
-export default BillsTableContainer;
+export default BillsTable;
 
 const columns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', width: 70 },
+  { field: 'id', headerName: 'ID', width: 10 },
   { field: 'title', headerName: 'Title', width: 130 },
   { field: 'lastName', headerName: 'Last name', width: 130 },
   {

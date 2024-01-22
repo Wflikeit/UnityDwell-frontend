@@ -5,8 +5,9 @@ import LoginPage from '../LoginPage/LoginPage.tsx';
 import { ProtectedRouteWrapper } from '../../auth/ProtectedRouteWrapper.tsx';
 import { UserRole } from '../../auth/UserRole.ts';
 import { LoggedInRoutes } from './LoggedInRoutes.tsx';
+import React from 'react';
 
-function App(): JSX.Element {
+function App(): React.ReactElement {
   const queryClient = new QueryClient();
 
   const router = createBrowserRouter(
