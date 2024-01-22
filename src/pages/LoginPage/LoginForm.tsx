@@ -13,7 +13,6 @@ const LoginForm = () => {
       const accessToken = await getAccessTokenWithPopup();
       if (typeof accessToken === 'string') {
         await setAuthorizationHeader(accessToken);
-        console.log(accessToken);
         sessionStorage.setItem(TOKEN_KEY, accessToken);
         navigateToHome();
       }
