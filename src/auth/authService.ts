@@ -9,7 +9,7 @@ type DecodedToken = {
   user_email: string;
 };
 export const TOKEN_KEY = 'access_token';
-export const checkTokenValidity = (unauthorizedCallback: () => void) => {
+export const checkTokenValidity = async (unauthorizedCallback: () => void) => {
   const token = sessionStorage.getItem(TOKEN_KEY);
   if (!token) {
     unauthorizedCallback();
@@ -25,7 +25,7 @@ export const checkTokenValidity = (unauthorizedCallback: () => void) => {
   } else {
     const timeout = decodedToken.exp * 1000 - currentTime * 1000;
     setTimeout(() => checkTokenValidity(unauthorizedCallback), timeout);
-    setAuthorizationHeader(token);
+    await setAuthorizationHeader(token);
   }
 };
 
@@ -55,6 +55,7 @@ const getDecodedToken = () => {
 
   return jwtDecode(token) as DecodedToken;
 };
-export const setAuthorizationHeader = (token: string) => {
+export const setAuthorizationHeader = async (token: string) => {
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  console.log(`Setting authorization header${token}`);
 };

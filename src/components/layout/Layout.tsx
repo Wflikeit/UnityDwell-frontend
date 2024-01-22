@@ -7,6 +7,7 @@ import Footer from '../footer/Footer';
 import Main from '../mainContent/MainContent.tsx';
 
 import '../../scss/layout.scss';
+import { EnsureAuth } from '../../pages/App/EnsureAuth.tsx';
 
 const Layout = (): React.JSX.Element => {
   return (
@@ -16,6 +17,7 @@ const Layout = (): React.JSX.Element => {
       display={'grid'}
       style={{ minHeight: '100vh' }}
     >
+      <EnsureAuth />
       <Sidebar />
       <Header />
       <Main />

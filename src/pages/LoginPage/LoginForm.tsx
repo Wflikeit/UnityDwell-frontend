@@ -1,18 +1,26 @@
 import '/src/scss/loginPage.scss';
 import { Box, Button, Typography } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
+import { setAuthorizationHeader, TOKEN_KEY } from '../../auth/authService.ts';
+import { useCustomNavigation } from '../../hooks/NavigationHook.ts';
 
 const LoginForm = () => {
-  const { loginWithRedirect } = useAuth0();
-
-
+  const { getAccessTokenWithPopup } = useAuth0();
+  const { navigateToHome, navigateToLoginPage } = useCustomNavigation();
 
   const onClickAction = async () => {
-    await loginWithRedirect({
-      authorizationParams: {
-        redirect_uri: 'http://localhost:5173/auth',
-      },
-    });
+    try {
+      const accessToken = await getAccessTokenWithPopup();
+      if (typeof accessToken === 'string') {
+        await setAuthorizationHeader(accessToken);
+        console.log(accessToken);
+        sessionStorage.setItem(TOKEN_KEY, accessToken);
+        navigateToHome();
+      }
+    } catch (error) {
+      console.error('Error accessing an access token:', error);
+      navigateToLoginPage();
+    }
   };
 
   return (
