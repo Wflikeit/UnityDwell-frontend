@@ -1,0 +1,14 @@
+div.collapsible {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: 500ms;
+  &.open{
+    grid-template-rows: 1fr;
+  }
+  &textarea{
+    overflow: hidden;
+    &.notOpen{
+      border: none;
+    }
+  }
+}
