@@ -5,10 +5,13 @@ div.collapsible {
   &.open{
     grid-template-rows: 1fr;
   }
-  &textarea{
+  &> *{
     overflow: hidden;
-    &.notOpen{
+
+    &.notOpen {
       border: none;
+      margin: 0;
+      padding: 0;
     }
   }
 }

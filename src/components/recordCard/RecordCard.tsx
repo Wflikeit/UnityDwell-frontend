@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Avatar, Card, CardHeader, Stack } from '@mui/material';
+import { Avatar, Button, Card, CardHeader, Stack } from '@mui/material';
 import Box from '@mui/material/Box/Box';
 import { format } from 'date-fns';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -7,13 +7,15 @@ import Collapsible from '../collapsible/Collapsible.tsx';
 import Typography from '@mui/material/Typography/Typography';
 import { CardItem } from '../../models/CardItem.ts';
 import { CardFirstItem } from '../../models/CardFirstItem.ts';
+import { grey } from '@mui/material/colors';
 
 type RecordCardProps = {
   cardItems: CardItem[];
   cardFirstItem: CardFirstItem;
   collapisbleComp: React.JSX.Element;
+  openDialogFunction: () => void;
 };
-const RecordCard = ({ cardFirstItem, cardItems, collapisbleComp }: RecordCardProps): React.JSX.Element => {
+const RecordCard = ({ cardFirstItem, cardItems, collapisbleComp, openDialogFunction }: RecordCardProps): React.JSX.Element => {
   // const path = `/publications/${publication.id}`;
   const [open, setOpen] = useState(false);
   const toggle = () => {
@@ -44,6 +46,21 @@ const RecordCard = ({ cardFirstItem, cardItems, collapisbleComp }: RecordCardPro
             <Typography variant="h6">{item.text}</Typography>
           </Stack>
         ))}
+        <Button
+          variant="outlined"
+          sx={{
+            fontSize: 13,
+            borderRadius: 28,
+            backgroundColor: 'white',
+            borderColor: grey[400],
+            color: 'black',
+            textTransform: 'none',
+            fontWeight: 600,
+          }}
+          onClick={openDialogFunction}
+        >
+          Edit
+        </Button>
         <ArrowDropDownIcon onClick={toggle} style={{ marginLeft: 'auto' }} />
       </Stack>
       <Collapsible isOpen={open} component={collapisbleComp} />
