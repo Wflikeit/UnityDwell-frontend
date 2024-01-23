@@ -61,13 +61,15 @@ const PublicationsList: React.FC<PublicationsListProps> = ({ housingAssociationI
             subtext: publication.dateOfPublishing, icon: <PostAddIcon />,
           }} cardItems={[{ text: publication.dateOfPublishing, icon: <CalendarMonthIcon /> }]}
                       collapisbleComp={<p>{publication.content}</p>}
-                      openDialogFunction={() => openDialogFunction(publication)} />
+                      openDialogFunction={() => openDialogFunction(publication)}
+          />
         ))}
       </Stack>
       <AddNewPieceButton path="/publications" handleClick={() => {
         setToAddPublication(true);
         setOpen(true);
-      }} />
+      }}
+      />
       {open && (
         <AddOrEditModal closeDialogFunction={closeDialogFunction} housingAssociationId={housingAssociationId ?? ''}
                         openedPublication={openedPublication} addPublication={toAddPublication}/>)}

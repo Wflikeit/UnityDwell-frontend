@@ -29,7 +29,7 @@ const RecordCard = ({ cardFirstItem, cardItems, collapisbleComp, openDialogFunct
         <Box>
           <CardHeader
             avatar={
-              <Avatar sx={{ bgcolor: 'rgba(247, 247, 247, 1)' }}>
+              <Avatar sx={{ bgcolor: 'rgba(247, 247, 247, 1)', color: 'black' }}>
                 {/*<PostAddIcon style={{ color: 'black' }} fontSize="large" />*/}
                 {cardFirstItem.icon}
               </Avatar>
@@ -56,6 +56,7 @@ const RecordCard = ({ cardFirstItem, cardItems, collapisbleComp, openDialogFunct
             color: 'black',
             textTransform: 'none',
             fontWeight: 600,
+            marginLeft: 'auto',
           }}
           onClick={openDialogFunction}
         >
