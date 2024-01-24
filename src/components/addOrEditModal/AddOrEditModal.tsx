@@ -12,7 +12,6 @@ import AddOrUpdateBuildingForm from '../addOrUpdateBuildingForm/AddOrUpdateBuild
 interface AddOrEditModalProps {
   housingAssociationId: string;
   closeDialogFunction: () => void;
-  // openedRecord: PublicationModel | BuildingModel | undefined;
   openedPublication?: PublicationModel;
   openedBuilding?: BuildingModel;
   addPublication?: boolean;

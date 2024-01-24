@@ -14,6 +14,7 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import { PublicationModel } from '../../models/Publication.ts';
 import { useCreatePublicationMutation, useUpdatePublicationMutation } from '../../api/PublicationApi.ts';
+// import FormButton from '../formButton/formButton.tsx';
 
 interface AddOrUpdatePublicationProps {
   openedPublication?: PublicationModel;
@@ -182,6 +183,7 @@ const AddOrUpdatePublicationForm: React.FC<AddOrUpdatePublicationProps> = ({
                 backgroundColor: 'black',
                 textTransform: 'none',
                 fontWeight: 600,
+                borderColor: grey[400],
               }}
               type="submit"
               disabled={!formik.values.title || !formik.values.content}

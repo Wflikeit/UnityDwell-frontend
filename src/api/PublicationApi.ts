@@ -29,7 +29,7 @@ export const useCreatePublicationMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(
     async (data: CreateOrUpdatePublicationRequest): Promise<number> => {
-      const response = await axios.post(`http://localhost:8080/api/housing-association/${data.housingAssociationId}/publications`, data, {
+      const response = await axios.post(`${API_URL}housing-association/${data.housingAssociationId}/publications`, data, {
         headers: {
           'content-type': 'application/json',
         },
@@ -46,7 +46,7 @@ export const useCreatePublicationMutation = () => {
 export const useUpdatePublicationMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(async (data: CreateOrUpdatePublicationRequest): Promise<number> => {
-    const response = await axios.put(`http://localhost:8080/api/publications/${data.publicationId}`, data, {
+    const response = await axios.put(`${API_URL}publications/${data.publicationId}`, data, {
       headers: {
         'content-type': 'application/json',
       },
@@ -58,11 +58,3 @@ export const useUpdatePublicationMutation = () => {
     },
   });
 };
-// const updateRoom = async (data: CreateOrUpdatePublicationRequest): Promise<number> => {
-//   const response = await axios.put(`/api/publications/${data.publicationId}`, data, {
-//     headers: {
-//       'content-type': 'application/json',
-//     },
-//   });
-//   return response.status;
-// };
