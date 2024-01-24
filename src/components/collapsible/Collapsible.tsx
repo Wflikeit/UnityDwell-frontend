@@ -5,10 +5,13 @@ interface CollapsibleProps {
   isOpen: boolean;
   component: React.JSX.Element;
 }
-const Collapsible: React.FC<CollapsibleProps> = ({isOpen = false, component}) => {
+
+const Collapsible: React.FC<CollapsibleProps> = ({ isOpen = false, component }) => {
   return (
-    <div className={`collapsible ${isOpen ? 'open' : 'closed'}`}>
+    <div className={`collapsible ${isOpen ? 'open' : 'closed'}`} style={{ padding: '2rem', paddingBottom: '0.5rem' }}>
+      <span className={!isOpen ? 'notOpen' : ''}>
       {component}
+      </span>
     </div>
   );
 };
