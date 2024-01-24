@@ -12,10 +12,12 @@ const BillsPage: React.FunctionComponent = () => {
       <Helmet>
         <title>Bills</title>
       </Helmet>
-      <Box sx={{ m: 7, ml: 30, mr: 30 }}>
+      <Box sx={{ m: 7, ml: '15dvw', mr: '15dvw', width: '60dvw' }}>
         <Typography variant={'h1'}>Bills</Typography>
-        <Typography variant={'h5'} ml={.5}>View and Manage bills</Typography>
-        <Box sx={{ mt: 4, maxWidth: '80rem' }}>
+        <Typography variant={'h5'} ml={0.5}>
+          View and Manage bills
+        </Typography>
+        <Box sx={{ mt: 4, maxWidth: '90rem' }}>
           <BillsTableContainer />
         </Box>
       </Box>

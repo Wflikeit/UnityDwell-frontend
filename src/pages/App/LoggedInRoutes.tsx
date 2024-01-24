@@ -28,7 +28,7 @@ export const LoggedInRoutes: React.FC = () => {
                 <Route path={AppRoutes.BUILDINGS} element={<BuildingsPage />} />
                 <Route path={AppRoutes.RESIDENTS} element={<ResidentsPage />} />
                 <Route path="*" element={<NotFoundPage />} />
-              </Routes>
+              </Routes> 
             </ProtectedRouteWrapper>
           }
         />

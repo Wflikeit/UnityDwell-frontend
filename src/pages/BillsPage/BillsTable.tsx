@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { Button } from '@mui/material';
 
 const BillsTable: React.FC = () => {
-
   return (
     <DataGrid
       rows={rows}
@@ -14,29 +14,81 @@ const BillsTable: React.FC = () => {
       }}
       pageSizeOptions={[5, 10]}
       checkboxSelection
-      sx={{maxHeight: '55dvh'}}
+      sx={{ maxHeight: '55dvh' }}
     />
-
   );
 };
 
 export default BillsTable;
 
 const columns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', width: 10 },
-  { field: 'title', headerName: 'Title', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
+  {
+    field: 'id',
+    headerName: 'ID',
+    width: 300,
+    maxWidth: 300,
+    minWidth: 50,
+    flex: 1,
+    align: 'center',
+    headerAlign: 'center',
+  },
+  {
+    field: 'title',
+    headerName: 'Title',
+    minWidth:100,
+    width: 130,
+    align: 'center',
+    headerAlign: 'center',
+  },
+  {
+    field: 'lastName',
+    headerName: 'Last name',
+    minWidth:100,
+    width: 130,
+    align: 'center',
+    headerAlign: 'center',
+  },
   {
     field: 'amount',
     headerName: 'Amount',
     type: 'number',
     width: 90,
+    align: 'center',
+    headerAlign: 'center',
   },
   {
     field: 'date',
     headerName: 'Date',
     type: 'date',
     width: 90,
+    align: 'center',
+    headerAlign: 'center',
+  },
+  {
+    field: '   ',
+    headerName: '',
+    disableColumnMenu: true,
+    disableReorder: true,
+    disableExport: true,
+    hideSortIcons: true,
+    align: 'center',
+    // renderHeader: ()=>{
+    //
+    // },
+    renderCell: (cellvalues) => {
+      return (
+        <Button
+          variant={'contained'}
+          color={'primary'}
+          onClick={(event) => {
+            event.stopPropagation(); // Stop event propagation
+            handleClick(event, cellvalues);
+          }}
+        >
+          Edit
+        </Button>
+      );
+    },
   },
 ];
 
