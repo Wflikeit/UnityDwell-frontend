@@ -11,7 +11,6 @@ import AddOrUpdatePublicationForm from '../addOrUpdatePublicationForm/AddOrUpdat
 interface AddOrEditModalProps {
   housingAssociationId: string;
   closeDialogFunction: () => void;
-  // openedRecord: PublicationModel | BuildingModel | undefined;
   openedPublication?: PublicationModel;
   openedBuilding?: BuildingModel;
   addPublication?: boolean;
@@ -38,11 +37,11 @@ const AddOrEditModal: React.FC<AddOrEditModalProps> = ({ housingAssociationId, c
         <CloseIcon />
       </IconButton>
       {openedPublication && (<AddOrUpdatePublicationForm housingAssociationId={housingAssociationId} closeDialogFunction={closeDialogFunction}
-                                   openedPublication={openedPublication} />)}
+                                   openedPublication={openedPublication}
+                             />)}
       {addPublication && (<AddOrUpdatePublicationForm housingAssociationId={housingAssociationId} closeDialogFunction={closeDialogFunction}
-                                                      openedPublication={openedPublication} />)}
-      {/*{usage.type == 'building' && (<AddOrUpdateBuildingForm housingAssociationId={housingAssociationId} closeDialogFunction={closeDialogFunction}*/}
-      {/*                             openedPublication={openedRecord} />)}*/}
+                                                      openedPublication={openedPublication}
+                          />)}
     </Dialog>
   </div>);
 };

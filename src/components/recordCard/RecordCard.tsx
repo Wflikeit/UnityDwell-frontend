@@ -21,7 +21,6 @@ const RecordCard = ({
                       collapisbleComp,
                       openDialogFunction,
                     }: RecordCardProps): React.JSX.Element => {
-  // const path = `/publications/${publication.id}`;
   const [open, setOpen] = useState(false);
   const toggle = () => {
     setOpen(!open);
@@ -29,14 +28,12 @@ const RecordCard = ({
 
   return (
     <Card sx={{ border: 'none', borderRadius: '1rem' }} variant="outlined">
-      {/*<CardActionArea sx={{ height: 80}} component={RouterLink} to={path}>*/}
       <Grid container spacing={2} alignItems={'center'}>
         <Grid item xs={3}>
           <Box>
             <CardHeader
               avatar={
                 <Avatar sx={{ bgcolor: 'rgba(247, 247, 247, 1)' }}>
-                  {/*<PostAddIcon style={{ color: 'black' }} fontSize="large" />*/}
                   {cardFirstItem.icon}
                 </Avatar>
               }
@@ -49,8 +46,8 @@ const RecordCard = ({
         </Grid>
         <Grid item xs={7} container justifyContent={'space-around'}>
           {cardItems?.map((item, index) => (
-            <Grid item>
-              <Stack direction="row" alignItems="center" gap={1} key={index}>
+            <Grid item key={index}>
+              <Stack direction="row" alignItems="center" gap={1}>
                 {item.icon}
                 <Typography variant="h6">{item.text}</Typography>
               </Stack>
