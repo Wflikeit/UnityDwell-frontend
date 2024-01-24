@@ -46,7 +46,12 @@ const BuildingsList: React.FC<BuildingsListProps> = ({ housingAssociationId }) =
   }
   return (
     <>
-      <Stack spacing={2}>
+      <AddNewPieceButton path="/buildings" handleClick={() => {
+        setToAddBuilding(true);
+        setOpen(true);
+      }}
+      />
+      <Stack spacing={2} sx={{marginTop: '2rem'}}>
         {data?.map((building) => (
           // <Collapsible component={<RecordCard publication={publication} key={publication.id} />} />
           <RecordCard key={building.id} cardFirstItem={{
@@ -60,11 +65,6 @@ const BuildingsList: React.FC<BuildingsListProps> = ({ housingAssociationId }) =
           />
         ))}
       </Stack>
-      <AddNewPieceButton path="/buildings" handleClick={() => {
-        setToAddBuilding(true);
-        setOpen(true);
-      }}
-      />
       {open && (
         <AddOrEditModal closeDialogFunction={closeDialogFunction} housingAssociationId={housingAssociationId ?? ''}
                         openedBuilding={openedBuilding} addBuilding={toAddBuilding}
