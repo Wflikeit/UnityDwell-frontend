@@ -8,6 +8,7 @@ import PostAddIcon from '@mui/icons-material/PostAdd';
 import React, { useState } from 'react';
 import { PublicationModel } from '../../models/Publication.ts';
 import AddOrEditModal from '../../components/addOrEditModal/AddOrEditModal.tsx';
+import { grey } from '@mui/material/colors';
 
 interface PublicationsListProps {
   housingAssociationId?: string;
@@ -53,24 +54,31 @@ const PublicationsList: React.FC<PublicationsListProps> = ({ housingAssociationI
   }
   return (
     <>
-      <Stack spacing={2}>
-        {data?.map((publication) => (
-          // <Collapsible component={<RecordCard publication={publication} key={publication.id} />} />
-          <RecordCard key={publication.id} cardFirstItem={{
-            text: publication.title,
-            subtext: publication.dateOfPublishing, icon: <PostAddIcon />,
-          }} cardItems={[{ text: publication.dateOfPublishing, icon: <CalendarMonthIcon /> }]}
-                      collapisbleComp={<p>{publication.content}</p>}
-                      openDialogFunction={() => openDialogFunction(publication)} />
-        ))}
-      </Stack>
       <AddNewPieceButton path="/publications" handleClick={() => {
         setToAddPublication(true);
         setOpen(true);
-      }} />
+      }}
+      />
+      <Stack spacing={2} sx={{ marginTop: '2rem' }}>
+        {data?.map((publication) => (
+          // <Collapsible component={<RecordCard publication={publication} key={publication.id} />} />
+          <RecordCard key={publication.id} sx={{ borderRadius: '5rem' }} cardFirstItem={{
+            text: publication.title,
+            subtext: publication.dateOfPublishing, icon: <PostAddIcon />,
+          }} cardItems={[{ text: publication.dateOfPublishing, icon: <CalendarMonthIcon /> }]}
+                      collapisbleComp={<p style={{
+                        padding: '1rem',
+                        backgroundColor: grey[200], borderRadius: '0.5rem',
+                      }}
+                      >{publication.content}</p>}
+                      openDialogFunction={() => openDialogFunction(publication)}
+          />
+        ))}
+      </Stack>
       {open && (
         <AddOrEditModal closeDialogFunction={closeDialogFunction} housingAssociationId={housingAssociationId ?? ''}
-                        openedPublication={openedPublication} addPublication={toAddPublication}/>)}
+                        openedPublication={openedPublication} addPublication={toAddPublication}
+        />)}
     </>
   );
 };
