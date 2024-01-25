@@ -1,23 +1,17 @@
 import React from 'react';
 import { Formik } from 'formik';
 import DialogContent from '@mui/material/DialogContent';
-import {
-  Box,
-  Chip,
-  CircularProgress,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Chip, CircularProgress, Stack, TextField, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-import { PublicationModel } from '../../models/Publication.ts';
+import { BillModel } from '../../models/Publication.ts';
 import { useCreatePublicationMutation, useUpdatePublicationMutation } from '../../api/PublicationApi.ts';
+
 // import FormButton from '../formButton/formButton.tsx';
 
 interface AddOrUpdatePublicationProps {
-  openedPublication?: PublicationModel;
+  openedPublication?: BillModel;
   housingAssociationId: string;
   closeDialogFunction: () => void;
 }
@@ -28,10 +22,10 @@ interface AddPublicationFormProps {
 }
 
 const AddOrUpdatePublicationForm: React.FC<AddOrUpdatePublicationProps> = ({
-                                                                             openedPublication,
-                                                                             housingAssociationId,
-                                                                             closeDialogFunction,
-                                                                           }) => {
+  openedPublication,
+  housingAssociationId,
+  closeDialogFunction,
+}) => {
   const validateFields = (values: AddPublicationFormProps) => {
     const errors: any = {};
     const trimmedTitleValue = values.title.trim();
@@ -48,34 +42,34 @@ const AddOrUpdatePublicationForm: React.FC<AddOrUpdatePublicationProps> = ({
   const { mutate: updatePublication } = useUpdatePublicationMutation();
   const onFormSubmit = ({ title, content }, { resetForm }) => {
     openedPublication &&
-    updatePublication(
-      { title, content, housingAssociationId, publicationId: openedPublication.id },
-      {
-        onSuccess: () => {
-          closeDialogFunction();
-          resetForm();
-          // SOMETHING
-        },
-        onError: () => {
-          // SOMETHING
-          // showSnackbarAlert({ alertMessage: 'An error occured. Please, try again!', severityLevel: 'error' });
-        },
-      },
-    );
+      updatePublication(
+        { title, content, housingAssociationId, publicationId: openedPublication.id },
+        {
+          onSuccess: () => {
+            closeDialogFunction();
+            resetForm();
+            // SOMETHING
+          },
+          onError: () => {
+            // SOMETHING
+            // showSnackbarAlert({ alertMessage: 'An error occured. Please, try again!', severityLevel: 'error' });
+          },
+        }
+      );
     !openedPublication &&
-    createPublication(
-      { title, content, housingAssociationId },
-      {
-        onSuccess: () => {
-          closeDialogFunction();
-          resetForm();
-          // SOMETHING
-        },
-        onError: () => {
-          // SOMETHING
-        },
-      },
-    );
+      createPublication(
+        { title, content, housingAssociationId },
+        {
+          onSuccess: () => {
+            closeDialogFunction();
+            resetForm();
+            // SOMETHING
+          },
+          onError: () => {
+            // SOMETHING
+          },
+        }
+      );
   };
   return (
     <Formik
@@ -194,7 +188,8 @@ const AddOrUpdatePublicationForm: React.FC<AddOrUpdatePublicationProps> = ({
           </DialogActions>
         </form>
       )}
-    </Formik>);
+    </Formik>
+  );
 };
 
 export default AddOrUpdatePublicationForm;

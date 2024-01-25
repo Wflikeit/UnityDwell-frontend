@@ -1,5 +1,5 @@
-import { PublicationModel } from './Publication.ts';
+import { BillModel } from './Publication.ts';
 
 export interface PublicationsResponse {
-  publications: PublicationModel[];
+  publications: BillModel[];
 }

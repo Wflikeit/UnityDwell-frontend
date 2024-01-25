@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
-import { PublicationModel } from '../models/Publication.ts';
+import { BillModel } from '../models/Publication.ts';
 import { PublicationsResponse } from '../models/PublicationsResponse.ts';
 import { BillModel } from '../models/Bill.ts';
 import { BillsResponse } from '../models/BillsResponse.ts';

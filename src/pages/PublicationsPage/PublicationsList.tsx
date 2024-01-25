@@ -5,7 +5,7 @@ import RecordCard from '../../components/recordCard/RecordCard.tsx';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import React, { useState } from 'react';
-import { PublicationModel } from '../../models/Publication.ts';
+import { BillModel } from '../../models/Publication.ts';
 import AddOrEditModal from '../../components/addOrEditModal/AddOrEditModal.tsx';
 import { grey } from '@mui/material/colors';
 
@@ -17,14 +17,14 @@ const PublicationsList: React.FC<PublicationsListProps> = ({ housingAssociationI
   const { isLoading, isError, data } = usePublicationsQuery();
   const SkeletonHeight = 80;
   const [open, setOpen] = useState(false);
-  const [openedPublication, setOpenedPublication] = useState<PublicationModel>();
+  const [openedPublication, setOpenedPublication] = useState<BillModel>();
   const [toAddPublication, setToAddPublication] = useState<boolean>(false);
   const closeDialogFunction = () => {
     setOpen(false);
     setOpenedPublication(undefined);
     setToAddPublication(false);
   };
-  const openDialogFunction = (publication: PublicationModel) => {
+  const openDialogFunction = (publication: BillModel) => {
     setOpen(true);
     setOpenedPublication(publication);
   };
@@ -45,31 +45,48 @@ const PublicationsList: React.FC<PublicationsListProps> = ({ housingAssociationI
   }
   return (
     <>
-      <AddNewPieceButton path="/publications" handleClick={() => {
-        setToAddPublication(true);
-        setOpen(true);
-      }}
+      <AddNewPieceButton
+        path="/publications"
+        handleClick={() => {
+          setToAddPublication(true);
+          setOpen(true);
+        }}
       />
       <Stack spacing={2} sx={{ marginTop: '2rem' }}>
         {data?.map((publication) => (
           // <Collapsible component={<RecordCard publication={publication} key={publication.id} />} />
-          <RecordCard key={publication.id} sx={{ borderRadius: '5rem' }} cardFirstItem={{
-            text: publication.title,
-            subtext: publication.dateOfPublishing, icon: <PostAddIcon />,
-          }} cardItems={[{ text: publication.dateOfPublishing, icon: <CalendarMonthIcon /> }]}
-                      collapisbleComp={<p style={{
-                        padding: '1rem',
-                        backgroundColor: grey[200], borderRadius: '0.5rem',
-                      }}
-                                       >{publication.content}</p>}
-                      openDialogFunction={() => openDialogFunction(publication)}
+          <RecordCard
+            key={publication.id}
+            sx={{ borderRadius: '5rem' }}
+            cardFirstItem={{
+              text: publication.title,
+              subtext: publication.dateOfPublishing,
+              icon: <PostAddIcon />,
+            }}
+            cardItems={[{ text: publication.dateOfPublishing, icon: <CalendarMonthIcon /> }]}
+            collapisbleComp={
+              <p
+                style={{
+                  padding: '1rem',
+                  backgroundColor: grey[200],
+                  borderRadius: '0.5rem',
+                }}
+              >
+                {publication.content}
+              </p>
+            }
+            openDialogFunction={() => openDialogFunction(publication)}
           />
         ))}
       </Stack>
       {open && (
-        <AddOrEditModal closeDialogFunction={closeDialogFunction} housingAssociationId={housingAssociationId ?? ''}
-                        openedPublication={openedPublication} addPublication={toAddPublication}
-        />)}
+        <AddOrEditModal
+          closeDialogFunction={closeDialogFunction}
+          housingAssociationId={housingAssociationId ?? ''}
+          openedPublication={openedPublication}
+          addPublication={toAddPublication}
+        />
+      )}
     </>
   );
 };
