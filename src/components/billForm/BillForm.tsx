@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik } from 'formik';
 import DialogContent from '@mui/material/DialogContent';
-import { Box, Chip, CircularProgress, Stack, TextField, Typography } from '@mui/material';
+import { Autocomplete, Box, Chip, CircularProgress, Stack, TextField, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
@@ -15,23 +15,27 @@ interface BillFormProps {
 }
 
 interface BillFormValuesProps {
-  title: string;
-  content: string;
+  amount: string;
 }
 
 const BillForm: React.FC<BillFormProps> = ({ bill, housingAssociationId, closeDialogFunction }) => {
   const validateFields = (values: BillFormValuesProps) => {
-    const errors: any = {};
+    const errors: never = {};
     const trimmedTitleValue = values.title.trim();
-    const trimmedContentValue = values.content.trim();
     if (trimmedTitleValue.length === 0) {
-      errors.title = 'Title is required';
+      errors.title = 'Amount is required';
     }
-    if (trimmedContentValue.length === 0) {
-      errors.content = 'Content is required';
-    }
+
+
     return errors;
   };
+  const titleList = [
+    { id: 1, title: 'Title 1' },
+    { id: 2, title: 'Title 2' },
+    { id: 3, title: 'Title 3' },
+    { id: 4, title: 'Rachunek1' },
+    { id: 5, title: 'RachunekZaWode' },
+  ];
   const { mutate: createPublication, isLoading, error } = useCreatePublicationMutation();
   const { mutate: updatePublication } = useUpdatePublicationMutation();
   const onFormSubmit = ({ title, content }, { resetForm }) => {
@@ -65,6 +69,7 @@ const BillForm: React.FC<BillFormProps> = ({ bill, housingAssociationId, closeDi
         }
       );
   };
+
   return (
     <Formik
       validate={validateFields}
@@ -95,23 +100,37 @@ const BillForm: React.FC<BillFormProps> = ({ bill, housingAssociationId, closeDi
               >
                 <Box sx={{ flexGrow: 1 }}>
                   <Typography sx={{ fontSize: 12 }} variant="subtitle1">
-                    Title
+                    Flat Owner Phone Number
                   </Typography>
-                  <TextField
-                    defaultValue={formik.values.title}
-                    inputProps={{ style: { fontSize: '12px' } }}
-                    type="text"
+                  <Autocomplete
                     variant="outlined"
+                    defaultValue={formik.values.title}
+                    options={titleList.map((option) => option.title)}
+                    renderInput={(params) => <TextField {...params}  />}
                     name="title"
                     margin="none"
                     size="small"
                     fullWidth
                     onChange={formik.handleChange}
-                    error={formik.errors.title !== undefined}
                   />
                   <Typography sx={{ fontSize: 12 }} variant="subtitle1">
-                    Content
-                  </Typography>{' '}
+                    Title
+                  </Typography>
+                  <Autocomplete
+                    variant="outlined"
+                    defaultValue={formik.values.title}
+                    options={titleList.map((option) => option.title)}
+                    renderInput={(params) => <TextField {...params}  />}
+                    name="title"
+                    margin="none"
+                    size="small"
+                    fullWidth
+                    onChange={formik.handleChange}
+                  />
+
+                  <Typography sx={{ fontSize: 12 }} variant="subtitle1">
+                    Amount
+                  </Typography>
                   <TextField
                     defaultValue={formik.values.content}
                     fullWidth
@@ -137,7 +156,7 @@ const BillForm: React.FC<BillFormProps> = ({ bill, housingAssociationId, closeDi
                   {error ? (
                     <Chip
                       sx={{ fontSize: 12, marginTop: '10px' }}
-                      label="An error occured. Please, try again."
+                      label="An unexpected error occured. Please, try again."
                       color="error"
                       variant="outlined"
                     />

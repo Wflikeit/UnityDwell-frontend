@@ -1,5 +1,4 @@
 import React from 'react';
-import { BillModel } from '../../models/Publication.ts';
 import { BuildingModel } from '../../models/Building.ts';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -27,7 +26,7 @@ const AddOrEditModal: React.FC<AddOrEditModalProps> = ({
   addPublication = false,
   addBuilding = false,
   children,
-  title
+  title,
 }) => {
   return (
     <div>

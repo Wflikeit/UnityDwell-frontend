@@ -4,7 +4,6 @@ import { Button } from '@mui/material';
 import Typography from '@mui/material/Typography/Typography';
 import { BillModel } from '../../models/Bill.ts';
 import { useState } from 'react';
-import { BillModel } from '../../models/Publication.ts';
 import AddOrEditModal from '../../components/addOrEditModal/AddOrEditModal.tsx';
 import BillForm from '../../components/billForm/BillForm.tsx';
 
@@ -14,18 +13,12 @@ type BillsTableProps = {
 
 const BillsTable: React.FC<BillsTableProps> = ({ data }) => {
   const [open, setOpen] = useState(false);
-  const [openedBill, setOpenedBill] = useState<BillModel>();
-  const [toAddBill, setToAddBill] = useState<boolean>(false);
+
   const closeDialogFunction = () => {
     setOpen(false);
-    setOpenedBill(undefined);
-    setToAddBill(false);
-    console.log(open);
   };
-  const openDialogFunction = (bill: BillModel) => {
+  const openDialogFunction = () => {
     setOpen(true);
-    setOpenedBill(bill);
-    console.log(open);
   };
 
   const columns: GridColDef[] = [
@@ -114,24 +107,23 @@ const BillsTable: React.FC<BillsTableProps> = ({ data }) => {
   ];
 
   return data && data.length > 0 ? (
-    <>
-      <DataGrid
-        rows={data}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
-          },
-        }}
-        pageSizeOptions={[5, 10]}
-        checkboxSelection
-        sx={{ maxHeight: '55vh', minHeight: '50vh' }}
-      />
-    </>
+    <DataGrid
+      rows={data}
+      columns={columns}
+      initialState={{
+        pagination: {
+          paginationModel: { page: 0, pageSize: 5 },
+        },
+      }}
+      pageSizeOptions={[5, 10]}
+      checkboxSelection
+      sx={{ maxHeight: '55vh', minHeight: '50vh' }}
+    />
   ) : (
     <Typography variant="h3" textAlign="center" marginTop="16rem">
       Please add new bill first
     </Typography>
   );
 };
+
 export default BillsTable;

@@ -1,4 +1,4 @@
-export interface BillModel {
+export interface PublicationModel {
   id: string;
   content: string;
   title: string;
