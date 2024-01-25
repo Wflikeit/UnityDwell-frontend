@@ -1,0 +1,26 @@
+div.collapsible {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: 500ms;
+
+  &.open {
+    grid-template-rows: 1fr;
+  }
+
+  & * {
+    overflow: hidden;
+
+    & > * {
+      overflow: hidden;
+    }
+
+    &.notOpen {
+      & > * {
+        transition: 500ms;
+        border: none;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}
