@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 import { BillModel } from '../../models/Publication.ts';
 import AddOrEditModal from '../../components/addOrEditModal/AddOrEditModal.tsx';
 import { grey } from '@mui/material/colors';
+import AddOrUpdatePublicationForm from '../../components/addOrUpdatePublicationForm/AddOrUpdatePublicationForm.tsx';
 
 interface PublicationsListProps {
   housingAssociationId?: string;
@@ -82,10 +83,14 @@ const PublicationsList: React.FC<PublicationsListProps> = ({ housingAssociationI
       {open && (
         <AddOrEditModal
           closeDialogFunction={closeDialogFunction}
-          housingAssociationId={housingAssociationId ?? ''}
-          openedPublication={openedPublication}
-          addPublication={toAddPublication}
-        />
+          title={toAddPublication ? 'Add Publication' : 'Edit Publication'}
+        >
+          <AddOrUpdatePublicationForm
+            openedPublication={openedPublication}
+            housingAssociationId={housingAssociationId}
+            closeDialogFunction={closeDialogFunction}
+          />
+        </AddOrEditModal>
       )}
     </>
   );
