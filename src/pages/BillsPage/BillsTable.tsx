@@ -6,6 +6,7 @@ import { BillModel } from '../../models/Bill.ts';
 import { useState } from 'react';
 import { BillModel } from '../../models/Publication.ts';
 import AddOrEditModal from '../../components/addOrEditModal/AddOrEditModal.tsx';
+import BillForm from '../../components/billForm/BillForm.tsx';
 
 type BillsTableProps = {
   data?: BillModel[];
@@ -19,10 +20,12 @@ const BillsTable: React.FC<BillsTableProps> = ({ data }) => {
     setOpen(false);
     setOpenedBill(undefined);
     setToAddBill(false);
+    console.log(open);
   };
   const openDialogFunction = (bill: BillModel) => {
     setOpen(true);
     setOpenedBill(bill);
+    console.log(open);
   };
 
   const columns: GridColDef[] = [
@@ -76,19 +79,34 @@ const BillsTable: React.FC<BillsTableProps> = ({ data }) => {
       disableExport: true,
       hideSortIcons: true,
       align: 'center',
-      renderCell: (cellvalues) => {
+      renderCell: (cellValues) => {
+        const handleClick = (event, cellValues) => {
+          if (!open) {
+            event.stopPropagation(); // Stop event propagation
+            openDialogFunction(cellValues.row);
+          }
+        };
+
         return (
           <Button
-            variant={'contained'}
+            variant="contained"
             sx={{ backgroundColor: '#7870fd' }}
-            onClick={(event) => {
-              event.stopPropagation(); // Stop event propagation
-              console.log(cellvalues);
-              openDialogFunction(cellvalues.row);
-              // handleClick(event, cellvalues);
-            }}
+            onClick={(event) => handleClick(event, cellValues)}
           >
             Edit
+            {open && (
+              <AddOrEditModal
+                housingAssociationId={cellValues.row.housingAssociation.id}
+                closeDialogFunction={closeDialogFunction}
+                title={'Add new Bill'}
+              >
+                <BillForm
+                  housingAssociationId={cellValues.row.housingAssociation.id}
+                  bill={cellValues.row}
+                  closeDialogFunction={closeDialogFunction}
+                />
+              </AddOrEditModal>
+            )}
           </Button>
         );
       },
@@ -109,13 +127,6 @@ const BillsTable: React.FC<BillsTableProps> = ({ data }) => {
         checkboxSelection
         sx={{ maxHeight: '55vh', minHeight: '50vh' }}
       />
-      {open && (
-        <AddOrEditModal
-          housingAssociationId={data[0].housingAssociation.id}
-          closeDialogFunction={closeDialogFunction}
-          children={}
-        />
-      )}
     </>
   ) : (
     <Typography variant="h3" textAlign="center" marginTop="16rem">
@@ -123,5 +134,4 @@ const BillsTable: React.FC<BillsTableProps> = ({ data }) => {
     </Typography>
   );
 };
-
 export default BillsTable;

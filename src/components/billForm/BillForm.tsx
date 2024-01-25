@@ -8,23 +8,19 @@ import Button from '@mui/material/Button';
 import { BillModel } from '../../models/Publication.ts';
 import { useCreatePublicationMutation, useUpdatePublicationMutation } from '../../api/PublicationApi.ts';
 
-interface AddOrUpdatePublicationProps {
-  openedPublication?: BillModel;
+interface BillFormProps {
+  bill?: BillModel;
   housingAssociationId: string;
   closeDialogFunction: () => void;
 }
 
-interface AddPublicationFormProps {
+interface BillFormValuesProps {
   title: string;
   content: string;
 }
 
-const AddOrUpdatePublicationForm: React.FC<AddOrUpdatePublicationProps> = ({
-  openedPublication,
-  housingAssociationId,
-  closeDialogFunction,
-}) => {
-  const validateFields = (values: AddPublicationFormProps) => {
+const BillForm: React.FC<BillFormProps> = ({ bill, housingAssociationId, closeDialogFunction }) => {
+  const validateFields = (values: BillFormValuesProps) => {
     const errors: any = {};
     const trimmedTitleValue = values.title.trim();
     const trimmedContentValue = values.content.trim();
@@ -39,9 +35,9 @@ const AddOrUpdatePublicationForm: React.FC<AddOrUpdatePublicationProps> = ({
   const { mutate: createPublication, isLoading, error } = useCreatePublicationMutation();
   const { mutate: updatePublication } = useUpdatePublicationMutation();
   const onFormSubmit = ({ title, content }, { resetForm }) => {
-    openedPublication &&
+    bill &&
       updatePublication(
-        { title, content, housingAssociationId, publicationId: openedPublication.id },
+        { title, content, housingAssociationId, publicationId: bill.id },
         {
           onSuccess: () => {
             closeDialogFunction();
@@ -54,7 +50,7 @@ const AddOrUpdatePublicationForm: React.FC<AddOrUpdatePublicationProps> = ({
           },
         }
       );
-    !openedPublication &&
+    !bill &&
       createPublication(
         { title, content, housingAssociationId },
         {
@@ -73,8 +69,8 @@ const AddOrUpdatePublicationForm: React.FC<AddOrUpdatePublicationProps> = ({
     <Formik
       validate={validateFields}
       initialValues={{
-        title: openedPublication ? openedPublication.title : '',
-        content: openedPublication ? openedPublication.content : '',
+        title: bill ? bill.title : '',
+        content: bill ? bill.content : '',
       }}
       onSubmit={({ title, content }, { resetForm }) => {
         onFormSubmit({ title, content }, { resetForm });
@@ -181,7 +177,7 @@ const AddOrUpdatePublicationForm: React.FC<AddOrUpdatePublicationProps> = ({
               disabled={!formik.values.title || !formik.values.content}
               startIcon={isLoading ? <CircularProgress color="inherit" size={18} /> : null}
             >
-              {openedPublication ? 'Update publication' : 'Add publication'}
+              {bill ? 'Update Bill' : 'Add Bill'}
             </Button>
           </DialogActions>
         </form>
@@ -190,4 +186,4 @@ const AddOrUpdatePublicationForm: React.FC<AddOrUpdatePublicationProps> = ({
   );
 };
 
-export default AddOrUpdatePublicationForm;
+export default BillForm;

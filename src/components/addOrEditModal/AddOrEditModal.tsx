@@ -16,6 +16,7 @@ interface AddOrEditModalProps {
   addBuilding?: boolean;
   // dataModel/: BillModel | BuildingModel | PublicationModel
   children?: React.ReactElement;
+  title?: string;
 }
 
 const AddOrEditModal: React.FC<AddOrEditModalProps> = ({
@@ -25,11 +26,18 @@ const AddOrEditModal: React.FC<AddOrEditModalProps> = ({
   openedBuilding,
   addPublication = false,
   addBuilding = false,
+  children,
+  title
 }) => {
   return (
     <div>
       <Dialog open={true} onClose={closeDialogFunction} fullWidth={true} keepMounted={true}>
-        <DialogTitle variant="h4">{openedPublication ? 'Edit publication' : 'Add new publication'}</DialogTitle>
+        {title ? (
+          <DialogTitle variant="h4">{title}</DialogTitle>
+        ) : (
+          <DialogTitle variant="h4">{openedPublication ? 'Edit publication' : 'Add new publication'}</DialogTitle>
+        )}
+
         <IconButton
           aria-label="close"
           onClick={closeDialogFunction}
@@ -55,8 +63,7 @@ const AddOrEditModal: React.FC<AddOrEditModalProps> = ({
             openedPublication={openedPublication}
           />
         )}
-        {children}
-
+        {children && children}
       </Dialog>
     </div>
   );
