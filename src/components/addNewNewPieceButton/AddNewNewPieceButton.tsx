@@ -13,7 +13,13 @@ const AddNewPieceButton: React.FC<AddNewPieceButtonProps> = ({ path, handleClick
     <CardActionArea component={RouterLink} to={path} onClick={handleClick}>
       <Card
         style={{ border: 'none', boxShadow: 'none' }}
-        sx={{backgroundColor: 'rgba(203, 203, 204, 1)'  , height: 80, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+        sx={{
+          backgroundColor: 'rgba(203, 203, 204, 1)',
+          height: 80,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
       >
         <CardContent>
           <AddIcon />

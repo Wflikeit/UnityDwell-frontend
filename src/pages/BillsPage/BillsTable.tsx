@@ -1,11 +1,17 @@
 import * as React from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
+import Typography from '@mui/material/Typography/Typography';
+import { BillModel } from '../../models/Bill.ts';
 
-const BillsTable: React.FC = () => {
-  return (
+type BillsTableProps = {
+  data?: BillModel[];
+};
+
+const BillsTable: React.FC<BillsTableProps> = ({ data }) => {
+  return data && data.length > 0 ? (
     <DataGrid
-      rows={rows}
+      rows={data}
       columns={columns}
       initialState={{
         pagination: {
@@ -14,8 +20,13 @@ const BillsTable: React.FC = () => {
       }}
       pageSizeOptions={[5, 10]}
       checkboxSelection
-      sx={{ maxHeight: '55dvh' }}
+      sx={{ maxHeight: '55dvh', minHeight: '50dvh' }}
     />
+  ) : (
+    <Typography variant={'h3'} textAlign="center" margin="16rem">
+      {' '}
+      Please add new bill first
+    </Typography>
   );
 };
 
@@ -35,15 +46,15 @@ const columns: GridColDef[] = [
   {
     field: 'title',
     headerName: 'Title',
-    minWidth:100,
+    minWidth: 100,
     width: 130,
     align: 'center',
     headerAlign: 'center',
   },
   {
-    field: 'lastName',
-    headerName: 'Last name',
-    minWidth:100,
+    field: 'flatOwnerPhoneNumber',
+    headerName: 'Phone Number',
+    minWidth: 100,
     width: 130,
     align: 'center',
     headerAlign: 'center',
@@ -57,9 +68,9 @@ const columns: GridColDef[] = [
     headerAlign: 'center',
   },
   {
-    field: 'date',
+    field: 'dateOfPublishing',
     headerName: 'Date',
-    type: 'date',
+    type: 'Date',
     width: 90,
     align: 'center',
     headerAlign: 'center',
@@ -72,9 +83,6 @@ const columns: GridColDef[] = [
     disableExport: true,
     hideSortIcons: true,
     align: 'center',
-    // renderHeader: ()=>{
-    //
-    // },
     renderCell: (cellvalues) => {
       return (
         <Button
@@ -82,7 +90,7 @@ const columns: GridColDef[] = [
           color={'primary'}
           onClick={(event) => {
             event.stopPropagation(); // Stop event propagation
-            handleClick(event, cellvalues);
+            // handleClick(event, cellvalues);
           }}
         >
           Edit
@@ -90,16 +98,4 @@ const columns: GridColDef[] = [
       );
     },
   },
-];
-
-const rows = [
-  { id: 1, title: 'Snow', firstName: 'Jon', amount: 35 },
-  { id: 2, title: 'Lannister', firstName: 'Cersei', amount: 42 },
-  { id: 3, title: 'Lannister', firstName: 'Jaime', amount: 45 },
-  { id: 4, title: 'Stark', firstName: 'Arya', amount: 16 },
-  { id: 5, title: 'Targaryen', firstName: 'Daenerys', amount: null },
-  { id: 6, title: 'Melisandre', firstName: null, amount: 150 },
-  { id: 7, title: 'Clifford', firstName: 'Ferrara', amount: 44 },
-  { id: 8, title: 'Frances', firstName: 'Rossini', amount: 36 },
-  { id: 9, title: 'Roxie', firstName: 'Harvey', amount: 65 },
 ];
