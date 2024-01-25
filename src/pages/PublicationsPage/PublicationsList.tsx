@@ -1,6 +1,5 @@
 import { usePublicationsQuery } from '../../api/PublicationApi.ts';
 import { Skeleton, Stack } from '@mui/material';
-// import { Stack } from '@mui/material';
 import AddNewPieceButton from '../../components/addNewNewPieceButton/AddNewNewPieceButton.tsx';
 import RecordCard from '../../components/recordCard/RecordCard.tsx';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -17,14 +16,6 @@ interface PublicationsListProps {
 const PublicationsList: React.FC<PublicationsListProps> = ({ housingAssociationId }) => {
   const { isLoading, isError, data } = usePublicationsQuery();
   const SkeletonHeight = 80;
-  // const publication = {
-  //   id: "b4c574bd-d8b2-4f4a-aada-4ddee3ce1afc",
-  //   content: "jebackomandosa",
-  //   title: "tytul",
-  //   dateOfPublishing: new Date(),
-  //   idOfHousingAssociation: "04678797-6435-45d1-a748-770b33a1917b"
-  // }
-  // const data = [publication];
   const [open, setOpen] = useState(false);
   const [openedPublication, setOpenedPublication] = useState<PublicationModel>();
   const [toAddPublication, setToAddPublication] = useState<boolean>(false);
@@ -70,7 +61,7 @@ const PublicationsList: React.FC<PublicationsListProps> = ({ housingAssociationI
                         padding: '1rem',
                         backgroundColor: grey[200], borderRadius: '0.5rem',
                       }}
-                      >{publication.content}</p>}
+                                       >{publication.content}</p>}
                       openDialogFunction={() => openDialogFunction(publication)}
           />
         ))}
