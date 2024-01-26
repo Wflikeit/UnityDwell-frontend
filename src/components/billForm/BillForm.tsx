@@ -5,8 +5,8 @@ import { Autocomplete, Box, Chip, CircularProgress, Stack, TextField, Typography
 import { grey } from '@mui/material/colors';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-import { BillModel } from '../../models/Publication.ts';
-import { useCreatePublicationMutation, useUpdatePublicationMutation } from '../../api/PublicationApi.ts';
+import { useBillTitlesQuery, useCreateBillMutation, useUpdateBillMutation } from '../../api/BillApi.ts';
+import { BillModel } from '../../models/Bill.ts';
 
 interface BillFormProps {
   bill?: BillModel;
@@ -15,70 +15,75 @@ interface BillFormProps {
 }
 
 interface BillFormValuesProps {
-  amount: string;
+  amount: number;
+  title: string;
+  flatOwnerPhoneNumber: string;
 }
 
-const BillForm: React.FC<BillFormProps> = ({ bill, housingAssociationId, closeDialogFunction }) => {
+const BillForm: React.FC<BillFormProps> = ({ bill, closeDialogFunction }) => {
   const validateFields = (values: BillFormValuesProps) => {
-    const errors: never = {};
-    const trimmedTitleValue = values.title.trim();
+    const errors: any = {};
+    const trimmedTitleValue = values.amount.toString().trim();
     if (trimmedTitleValue.length === 0) {
       errors.title = 'Amount is required';
     }
 
-
     return errors;
   };
-  const titleList = [
-    { id: 1, title: 'Title 1' },
-    { id: 2, title: 'Title 2' },
-    { id: 3, title: 'Title 3' },
-    { id: 4, title: 'Rachunek1' },
-    { id: 5, title: 'RachunekZaWode' },
-  ];
-  const { mutate: createPublication, isLoading, error } = useCreatePublicationMutation();
-  const { mutate: updatePublication } = useUpdatePublicationMutation();
-  const onFormSubmit = ({ title, content }, { resetForm }) => {
-    bill &&
-      updatePublication(
-        { title, content, housingAssociationId, publicationId: bill.id },
-        {
-          onSuccess: () => {
-            closeDialogFunction();
-            resetForm();
-            // SOMETHING
-          },
-          onError: () => {
-            // SOMETHING
-            // showSnackbarAlert({ alertMessage: 'An error occured. Please, try again!', severityLevel: 'error' });
-          },
-        }
-      );
-    !bill &&
-      createPublication(
-        { title, content, housingAssociationId },
-        {
-          onSuccess: () => {
-            closeDialogFunction();
-            resetForm();
-            // SOMETHING
-          },
-          onError: () => {
-            // SOMETHING
-          },
-        }
-      );
+  const { data, isError } = useBillTitlesQuery();
+  const titleList = data;
+  // const { mutate: createPublication, isLoading, error } = useCreateBillMutation();
+  const { mutate: updateBill } = useUpdateBillMutation();
+  const onFormSubmit = ({ amount, title, flatOwnerPhoneNumber, housingAssociationId }, { resetForm }) => {
+    bill && console.log({ amount, title, flatOwnerPhoneNumber, housingAssociationId });
+    updateBill(
+      {
+        title,
+        housingAssociationId,
+        amount,
+        flatOwnerPhoneNumber,
+        billId: bill.id,
+        dateOfPublishing: new Date(),
+      },
+      {
+        onSuccess: () => {
+          closeDialogFunction();
+          resetForm();
+          // SOMETHING
+        },
+        onError: () => {
+          // SOMETHING
+          // showSnackbarAlert({ alertMessage: 'An error occured. Please, try again!', severityLevel: 'error' });
+        },
+      }
+    );
+    // !bill &&
+    //   createPublication(
+    //     { title, housingAssociationId, amount, flatOwnerPhoneNumber },
+    //     {
+    //       onSuccess: () => {
+    //         closeDialogFunction();
+    //         resetForm();
+    //         // SOMETHING
+    //       },
+    //       onError: () => {
+    //         // SOMETHING
+    //       },
+    //     }
+    //   );
   };
 
-  return (
+  return !isError ? (
     <Formik
       validate={validateFields}
       initialValues={{
         title: bill ? bill.title : '',
-        content: bill ? bill.content : '',
+        amount: bill ? bill.amount : 0,
+        flatOwnerPhoneNumber: bill ? bill.flatOwnerPhoneNumber : '',
+        housingAssociationId: bill ? bill.housingAssociation.id : '',
       }}
-      onSubmit={({ title, content }, { resetForm }) => {
-        onFormSubmit({ title, content }, { resetForm });
+      onSubmit={({ title, amount, flatOwnerPhoneNumber, housingAssociationId }, { resetForm }) => {
+        onFormSubmit({ title, amount, flatOwnerPhoneNumber, housingAssociationId }, { resetForm });
       }}
     >
       {(formik) => (
@@ -103,12 +108,8 @@ const BillForm: React.FC<BillFormProps> = ({ bill, housingAssociationId, closeDi
                     Flat Owner Phone Number
                   </Typography>
                   <Autocomplete
-                    variant="outlined"
-                    defaultValue={formik.values.title}
-                    options={titleList.map((option) => option.title)}
-                    renderInput={(params) => <TextField {...params}  />}
-                    name="title"
-                    margin="none"
+                    options={titleList ? titleList.map((option) => option.title) : []}
+                    renderInput={(params) => <TextField {...params} />}
                     size="small"
                     fullWidth
                     onChange={formik.handleChange}
@@ -117,12 +118,8 @@ const BillForm: React.FC<BillFormProps> = ({ bill, housingAssociationId, closeDi
                     Title
                   </Typography>
                   <Autocomplete
-                    variant="outlined"
-                    defaultValue={formik.values.title}
-                    options={titleList.map((option) => option.title)}
-                    renderInput={(params) => <TextField {...params}  />}
-                    name="title"
-                    margin="none"
+                    options={titleList ? titleList.map((option) => option.title) : []}
+                    renderInput={(params) => <TextField {...params} />}
                     size="small"
                     fullWidth
                     onChange={formik.handleChange}
@@ -132,10 +129,10 @@ const BillForm: React.FC<BillFormProps> = ({ bill, housingAssociationId, closeDi
                     Amount
                   </Typography>
                   <TextField
-                    defaultValue={formik.values.content}
+                    defaultValue={formik.values.amount}
                     fullWidth
                     variant="outlined"
-                    name="content"
+                    name="amoung"
                     size="small"
                     margin="none"
                     InputProps={{
@@ -145,7 +142,7 @@ const BillForm: React.FC<BillFormProps> = ({ bill, housingAssociationId, closeDi
                   >
                     (// Temporary)
                   </TextField>
-                  {formik.errors.title && formik.touched.title && (
+                  {formik.errors.amount && formik.touched.amount && (
                     <Chip
                       sx={{ fontSize: 12, marginTop: '10px' }}
                       label="'Title' is required field."
@@ -153,14 +150,14 @@ const BillForm: React.FC<BillFormProps> = ({ bill, housingAssociationId, closeDi
                       variant="outlined"
                     />
                   )}
-                  {error ? (
-                    <Chip
-                      sx={{ fontSize: 12, marginTop: '10px' }}
-                      label="An unexpected error occured. Please, try again."
-                      color="error"
-                      variant="outlined"
-                    />
-                  ) : null}
+                  {/*{error ? (*/}
+                  {/*  <Chip*/}
+                  {/*    sx={{ fontSize: 12, marginTop: '10px' }}*/}
+                  {/*    label="An unexpected error occured. Please, try again."*/}
+                  {/*    color="error"*/}
+                  {/*    variant="outlined"*/}
+                  {/*  />*/}
+                  {/*) : null}*/}
                 </Box>
               </Stack>
             </Box>
@@ -193,8 +190,8 @@ const BillForm: React.FC<BillFormProps> = ({ bill, housingAssociationId, closeDi
                 borderColor: grey[400],
               }}
               type="submit"
-              disabled={!formik.values.title || !formik.values.content}
-              startIcon={isLoading ? <CircularProgress color="inherit" size={18} /> : null}
+              disabled={!formik.values.amount}
+              // startIcon={isLoading ? <CircularProgress color="inherit" size={18} /> : null}
             >
               {bill ? 'Update Bill' : 'Add Bill'}
             </Button>
@@ -202,6 +199,10 @@ const BillForm: React.FC<BillFormProps> = ({ bill, housingAssociationId, closeDi
         </form>
       )}
     </Formik>
+  ) : (
+    <Typography variant="h3" textAlign="center" marginTop="16rem">
+      Please add new bill first
+    </Typography>
   );
 };
 

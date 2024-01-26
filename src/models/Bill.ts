@@ -1,9 +1,11 @@
+import { HousingAssociationModel } from './HousingAssosiation.ts';
+
 export interface BillModel {
-  id: string;
+  id?: string;
   amount: number;
   dateOfPublishing: Date;
   title: string;
-  flatOwnerPhoneNumber: number;
+  flatOwnerPhoneNumber: string;
   flatOwnerId: string;
-  housingAssociation: object;
+  housingAssociation: HousingAssociationModel;
 }

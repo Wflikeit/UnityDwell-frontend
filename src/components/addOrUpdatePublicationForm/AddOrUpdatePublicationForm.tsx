@@ -25,7 +25,7 @@ const AddOrUpdatePublicationForm: React.FC<AddOrUpdatePublicationProps> = ({
   closeDialogFunction,
 }) => {
   const validateFields = (values: AddPublicationFormProps) => {
-    const errors: never = {};
+    const errors: any = {};
     const trimmedTitleValue = values.title.trim();
     const trimmedContentValue = values.content.trim();
     if (trimmedTitleValue.length === 0) {
