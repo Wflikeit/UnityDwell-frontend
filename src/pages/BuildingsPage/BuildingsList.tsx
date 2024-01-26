@@ -7,8 +7,8 @@ import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import AddNewPieceButton from '../../components/addNewNewPieceButton/AddNewNewPieceButton.tsx';
 import AddOrEditModal from '../../components/addOrEditModal/AddOrEditModal.tsx';
-import BuildingDetails from './BuildingDetails.tsx';
 import AddOrUpdateBuildingForm from '../../components/addOrUpdateBuildingForm/AddOrUpdateBuildingForm.tsx';
+import { grey } from '@mui/material/colors';
 
 
 interface BuildingsListProps {
@@ -57,20 +57,39 @@ const BuildingsList: React.FC<BuildingsListProps> = ({ housingAssociationId }) =
             , ${building.address.numberOfBuilding}, ${building.address.postalCode}`, icon: <ApartmentIcon />,
           }} cardItems={[{ text: '4 flats', icon: <MeetingRoomIcon /> },
             { text: `${building.numberOfFloors} floors`, icon: <ApartmentIcon /> }]}
-                      collapisbleComp={<BuildingDetails building={building} />}
+                      collapisbleComp={
+                        <>
+                          <p style={{
+                            padding: '1rem',
+                            backgroundColor: grey[200], borderRadius: '0.5rem',
+                          }}
+                          >Date of thermal modernization: {building.dateOfThermalModernization}</p>
+                          <p style={{
+                            padding: '1rem',
+                            backgroundColor: grey[200], borderRadius: '0.5rem',
+                          }}
+                          >Date of commissioning: {building.dateOfCommissioning}</p>
+                          <p style={{
+                            padding: '1rem',
+                            backgroundColor: grey[200], borderRadius: '0.5rem',
+                          }}
+                          >Date of major renovation: {building.dateOfMajorRenovation}</p>
+                        </>
+                      }
                       openDialogFunction={() => openDialogFunction(building)}
           />
         ))}
       </Stack>
-      {open && (
-        <AddOrEditModal title={openedBuilding ? 'Edit building' : 'Add new building'}
-                        closeDialogFunction={closeDialogFunction} child={
-          <AddOrUpdateBuildingForm closeDialogFunction={closeDialogFunction}
-                                   housingAssociationId={housingAssociationId}
-                                   openedBuilding={openedBuilding}
-          />}
+      {
+        open && (
+          <AddOrEditModal title={openedBuilding ? 'Edit building' : 'Add new building'}
+                          closeDialogFunction={closeDialogFunction} child={
+            <AddOrUpdateBuildingForm closeDialogFunction={closeDialogFunction}
+                                     housingAssociationId={housingAssociationId}
+                                     openedBuilding={openedBuilding}
+            />}
 
-        />)}
+          />)}
     </>
   );
 };
