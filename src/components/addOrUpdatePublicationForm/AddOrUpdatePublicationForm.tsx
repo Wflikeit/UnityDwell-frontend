@@ -14,7 +14,6 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import { PublicationModel } from '../../models/Publication.ts';
 import { useCreatePublicationMutation, useUpdatePublicationMutation } from '../../api/PublicationApi.ts';
-// import FormButton from '../formButton/formButton.tsx';
 
 interface AddOrUpdatePublicationProps {
   openedPublication?: PublicationModel;
@@ -54,11 +53,8 @@ const AddOrUpdatePublicationForm: React.FC<AddOrUpdatePublicationProps> = ({
         onSuccess: () => {
           closeDialogFunction();
           resetForm();
-          // SOMETHING
         },
         onError: () => {
-          // SOMETHING
-          // showSnackbarAlert({ alertMessage: 'An error occured. Please, try again!', severityLevel: 'error' });
         },
       },
     );
@@ -135,9 +131,7 @@ const AddOrUpdatePublicationForm: React.FC<AddOrUpdatePublicationProps> = ({
                       style: { fontSize: '12px', width: '100%' },
                     }}
                     onChange={formik.handleChange}
-                  >
-                    (// Temporary)
-                  </TextField>
+                  />
                   {formik.errors.title && formik.touched.title && (
                     <Chip
                       sx={{ fontSize: 12, marginTop: '10px' }}

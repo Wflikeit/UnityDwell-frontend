@@ -1,10 +1,12 @@
+import { AddressModel } from './Address.ts';
+
 export interface BuildingModel {
   id: string;
-  addressId: string;
+  address: AddressModel;
   dateOfThermalModernization: Date;
   dateOfCommissioning: Date;
   dateOfMajorRenovation: Date;
   numberOfFloors: number;
-  intendedForLiving: boolean;
+  intendedForLiving: string;
   housingAssociationId: string;
 }

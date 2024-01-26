@@ -33,7 +33,7 @@ const RecordCard = ({
           <Box>
             <CardHeader
               avatar={
-                <Avatar sx={{ bgcolor: 'rgba(247, 247, 247, 1)' }}>
+                <Avatar sx={{ bgcolor: 'rgba(247, 247, 247, 1)', color: 'black' }}>
                   {cardFirstItem.icon}
                 </Avatar>
               }
