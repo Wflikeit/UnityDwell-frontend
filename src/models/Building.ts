@@ -7,6 +7,6 @@ export interface BuildingModel {
   dateOfCommissioning: Date;
   dateOfMajorRenovation: Date;
   numberOfFloors: number;
-  intendedForLiving: boolean;
+  intendedForLiving: string;
   housingAssociationId: string;
 }

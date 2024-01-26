@@ -1,7 +1,8 @@
 import { BuildingModel } from '../models/Building.ts';
 import axios from 'axios';
 import { BuildingsResponse } from '../models/BuildingsResponse.ts';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { CreateOrUpdateBuildingRequest } from '../models/CreateOrUpdateBuildingRequest.ts';
 
 
 export const API_URL: string = 'http://localhost:8080/api/';
@@ -14,4 +15,37 @@ export const fetchBuildings = async (): Promise<BuildingModel[]> => {
 };
 export const useBuildingsQuery = () => {
   return useQuery(['buildings'], fetchBuildings);
+};
+export const useCreateBuildingMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    async (data: CreateOrUpdateBuildingRequest): Promise<number> => {
+      const response = await axios.post(`${API_URL}buildings`, data, {
+        headers: {
+          'content-type': 'application/json',
+        },
+      });
+      return response.status;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('buildings');
+      },
+    },
+  );
+};
+export const useUpdateBuildingMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation(async (data: CreateOrUpdateBuildingRequest): Promise<number> => {
+    const response = await axios.put(`${API_URL}buildings/${data.id}`, data, {
+      headers: {
+        'content-type': 'application/json'
+      },
+    });
+    return response.status;
+  }, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('buildings');
+    }
+  })
 }

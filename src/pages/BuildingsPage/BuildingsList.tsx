@@ -8,10 +8,11 @@ import ApartmentIcon from '@mui/icons-material/Apartment';
 import AddNewPieceButton from '../../components/addNewNewPieceButton/AddNewNewPieceButton.tsx';
 import AddOrEditModal from '../../components/addOrEditModal/AddOrEditModal.tsx';
 import BuildingDetails from './BuildingDetails.tsx';
+import AddOrUpdateBuildingForm from '../../components/addOrUpdateBuildingForm/AddOrUpdateBuildingForm.tsx';
 
 
 interface BuildingsListProps {
-  housingAssociationId?: string;
+  housingAssociationId: string;
 }
 
 const BuildingsList: React.FC<BuildingsListProps> = ({ housingAssociationId }) => {
@@ -19,11 +20,9 @@ const BuildingsList: React.FC<BuildingsListProps> = ({ housingAssociationId }) =
   const SkeletonHeight = 80;
   const [open, setOpen] = useState(false);
   const [openedBuilding, setOpenedBuilding] = useState<BuildingModel>();
-  const [toAddBuilding, setToAddBuilding] = useState<boolean>(false);
   const closeDialogFunction = () => {
     setOpen(false);
     setOpenedBuilding(undefined);
-    setToAddBuilding(false);
   };
   const openDialogFunction = (building: BuildingModel) => {
     setOpen(true);
@@ -47,13 +46,11 @@ const BuildingsList: React.FC<BuildingsListProps> = ({ housingAssociationId }) =
   return (
     <>
       <AddNewPieceButton path="/buildings" handleClick={() => {
-        setToAddBuilding(true);
         setOpen(true);
       }}
       />
-      <Stack spacing={2} sx={{marginTop: '2rem'}}>
+      <Stack spacing={2} sx={{ marginTop: '2rem' }}>
         {data?.map((building) => (
-          // <Collapsible component={<RecordCard publication={publication} key={publication.id} />} />
           <RecordCard key={building.id} cardFirstItem={{
             text: '',
             subtext: `${building.address.city} ${building.address.street}
@@ -66,8 +63,13 @@ const BuildingsList: React.FC<BuildingsListProps> = ({ housingAssociationId }) =
         ))}
       </Stack>
       {open && (
-        <AddOrEditModal closeDialogFunction={closeDialogFunction} housingAssociationId={housingAssociationId ?? ''}
-                        openedBuilding={openedBuilding} addBuilding={toAddBuilding}
+        <AddOrEditModal title={openedBuilding ? 'Edit building' : 'Add new building'}
+                        closeDialogFunction={closeDialogFunction} child={
+          <AddOrUpdateBuildingForm closeDialogFunction={closeDialogFunction}
+                                   housingAssociationId={housingAssociationId}
+                                   openedBuilding={openedBuilding}
+          />}
+
         />)}
     </>
   );

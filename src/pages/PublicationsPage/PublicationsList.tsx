@@ -8,9 +8,10 @@ import React, { useState } from 'react';
 import { PublicationModel } from '../../models/Publication.ts';
 import AddOrEditModal from '../../components/addOrEditModal/AddOrEditModal.tsx';
 import { grey } from '@mui/material/colors';
+import AddOrUpdatePublicationForm from '../../components/addOrUpdatePublicationForm/AddOrUpdatePublicationForm.tsx';
 
 interface PublicationsListProps {
-  housingAssociationId?: string;
+  housingAssociationId: string;
 }
 
 const PublicationsList: React.FC<PublicationsListProps> = ({ housingAssociationId }) => {
@@ -18,11 +19,9 @@ const PublicationsList: React.FC<PublicationsListProps> = ({ housingAssociationI
   const SkeletonHeight = 80;
   const [open, setOpen] = useState(false);
   const [openedPublication, setOpenedPublication] = useState<PublicationModel>();
-  const [toAddPublication, setToAddPublication] = useState<boolean>(false);
   const closeDialogFunction = () => {
     setOpen(false);
     setOpenedPublication(undefined);
-    setToAddPublication(false);
   };
   const openDialogFunction = (publication: PublicationModel) => {
     setOpen(true);
@@ -46,7 +45,6 @@ const PublicationsList: React.FC<PublicationsListProps> = ({ housingAssociationI
   return (
     <>
       <AddNewPieceButton path="/publications" handleClick={() => {
-        setToAddPublication(true);
         setOpen(true);
       }}
       />
@@ -67,8 +65,14 @@ const PublicationsList: React.FC<PublicationsListProps> = ({ housingAssociationI
         ))}
       </Stack>
       {open && (
-        <AddOrEditModal closeDialogFunction={closeDialogFunction} housingAssociationId={housingAssociationId ?? ''}
-                        openedPublication={openedPublication} addPublication={toAddPublication}
+        <AddOrEditModal closeDialogFunction={closeDialogFunction}
+                        child={
+                          <AddOrUpdatePublicationForm closeDialogFunction={closeDialogFunction}
+                                                      housingAssociationId={housingAssociationId}
+                                                      openedPublication={openedPublication}
+                          />
+                        }
+                        title={openedPublication ? 'Edit publication' : 'Add new publication'}
         />)}
     </>
   );
